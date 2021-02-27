@@ -1,13 +1,16 @@
-const { Console } = require('console');
 const http = require('http');
 const app = require('./app');
-const connection = require('./connect');
+const { connect_to_db } = require('./db/index');
+require('dotenv').config();
 
 const server = http.createServer(app);
 
-server.listen(5000);
-console.log('SERVER IS LIVE');
-console.log('LISTENING ON PORT 5000');
-connection().then(() => {
+server.listen(process.env.PORT, 'localhost', (error) => {
+	if (error) throw error;
+	console.log('SERVER IS LIVE');
+	console.log(`LISTENING ON PORT ${process.env.PORT}`);
+});
+
+connect_to_db().then(() => {
 	console.log('--------------');
 });

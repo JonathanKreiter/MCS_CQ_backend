@@ -1,31 +1,35 @@
 const cqSearchRouter = require('express').Router();
-const validateInputs = require('./validation/cqSearchValidation');
+const { query_db } = require('./db/index');
 
-// cqSearchRouter.post('/', (req, res) => {
-// 	console.log(`SUBMITTED ON: ${new Date()}`);
-// 	console.log(req.body);
-// 	console.log(
-// 		'Content-Type:',
-// 		req.rawHeaders[
-// 			req.rawHeaders.indexOf('content-type' || 'Content-Type') + 1
-// 		],
-// 	);
-// 	res.status(200).end();
-// });
+//cqSearchRouter.use(validateInputs());
 
-cqSearchRouter.post('/', (req, re, next) => {
-	res.status(202); // accepted status, meaning request obj has been receieved, but nothing has been done with it yet.
-	let reqData = req.body;
-	// let output = validateInputs(reqData);
+// cqSearchRouter.use('QUERY DB MIDDLEWARE GOES HERE AFTER VALIDATION');
 
-	// // fix this so whatever the condition is, it can meet it if validation criteria aren't met
-	// if (output === 'error') {
-	// 	res
-	// 		.status(400)
-	// 		.json({ errorMessage: 'Incorrect syntax. Please try again' });
-	// }
-	// const resultsObj = queryDB(output);
-	// res.status(200).json(resultsObj).end();
+// cqSearchRouter.use('RESPOND BACK TO CLIENT MIDDLWARE GOES HERE');
+
+// cqSearchRouter.use('ERROR MIDDLEWARE GOES HERE');
+
+cqSearchRouter.post('/', async (req, res, next) => {
+	res.status(202);
+	let data = req.body;
+
+	let query_statement = `
+	SELECT 
+		*
+	FROM 
+		defendants
+	WHERE 
+		first_name = '${data['first_name'].toUpperCase()}'
+	`;
+
+	try {
+		let result = await query_db(query_statement);
+
+		const defendant_data = result.rows;
+		console.log();
+	} catch (error) {
+		console.log(error);
+	}
 });
 
 module.exports = cqSearchRouter;
