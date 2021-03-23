@@ -1,0 +1,17 @@
+html { 
+    height: 100%; 
+}
+.nav-item:hover {
+    color: #000000; 
+    
+    
+}
+
+/* 
+CSS Todo: 
+
+- Make bannr colors (blue and purple) exist in a CSS variable, and set them up with CSS variables
+- Find all repeating css and pull it into this file? (check if this is a thing when it comes to bootstrap, using your own css inside a file rather than inline)
+- 
+
+*/

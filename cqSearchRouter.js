@@ -1,35 +1,30 @@
-const cqSearchRouter = require('express').Router();
-const { query_db } = require('./db/index');
+const express = require('express');
+const cqSearchRouter = express.Router();
+const { query_db } = require('./psql_db/index');
 
-//cqSearchRouter.use(validateInputs());
 
-// cqSearchRouter.use('QUERY DB MIDDLEWARE GOES HERE AFTER VALIDATION');
-
-// cqSearchRouter.use('RESPOND BACK TO CLIENT MIDDLWARE GOES HERE');
-
-// cqSearchRouter.use('ERROR MIDDLEWARE GOES HERE');
-
-cqSearchRouter.post('/', async (req, res, next) => {
-	res.status(202);
-	let data = req.body;
-
-	let query_statement = `
-	SELECT 
-		*
-	FROM 
-		defendants
-	WHERE 
-		first_name = '${data['first_name'].toUpperCase()}'
-	`;
+cqSearchRouter.get('/', async (req, res) => { 
 
 	try {
-		let result = await query_db(query_statement);
-
-		const defendant_data = result.rows;
-		console.log();
+		let result = await query_db(req.query);
+		const defendant_data = result.rows.length > 1 ? result.rows : result.rows[0];
+		console.log('def data: ', defendant_data);
+		res.status(200).json({ defendant_data });
 	} catch (error) {
-		console.log(error);
+		//next(error);
+		console.log('catch error:', error);
+		res.sendStatus(500);
 	}
-});
+})
+
+
+
+
+// cqSearchRouter.post('/', async (req, res, next) => {
+// 	res.status(202);
+// 	let data = { ...req.body };
+
+
+// });
 
 module.exports = cqSearchRouter;

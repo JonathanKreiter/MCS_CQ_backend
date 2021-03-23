@@ -1,6 +1,6 @@
 const http = require('http');
 const app = require('./app');
-const { connect_to_db } = require('./db/index');
+const { connect_to_db } = require('./psql_db/index');
 require('dotenv').config();
 
 const server = http.createServer(app);

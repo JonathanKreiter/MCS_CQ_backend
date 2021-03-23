@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="../index.css" />
+        <title>CQ Case Detail</title>
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-md navbar-dark" style='background-color: rgb(148, 10, 158)'>
+            <a class="navbar-brand" href="../index.html">MCS</a>
+            <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-control='navbarSupportedContent' aria-expanded='false' aria-label=Toggle navigation'>
+                <span class='navbar-toggler-icon'></span>
+            </button>
+
+            <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+            <ul class='navbar-nav mr-auto' id='navbar-ul'>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Case Detail</a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="../cqSearch/cqsearch.html">CQ Search</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">CQ Case Detail</a>
+                </li>
+            </ul>
+        </div>
+
+        </nav>
+
+
+        <div class='container-fluid'>
+
+            <div id='case-summary-banner' class='row p-2' style='background-color: lightgrey;'>
+                <div class='col-md-1'><b>Docket:</b></div>
+                <div id='case-summary-banner-docket' class='col-md-2'></div>
+                <div class='col-md-1'><b>Name:</b></div>
+                <div id='case-summary-banner-name' class='col-md-2'></div>
+                <div class='col-md-1'><b>DOB:</b></div>
+                <div id='case-summary-banner-dob' class='col-md-2'></div>
+                <div class='col-md-1'><b>Alerts:</b></div>
+                <div id='case-summary-banner-alerts' class='col-md-2'></div>
+            </div>
+
+
+            <div id='case-detail-banner' class='row my-1'>
+                <h4 class='col-md-2 d-flex align-items-center'><b>CASE DETAIL</b></h4>
+                <div class='col-md-8 d-flex justify-content-end align-items-center rounded font-weight-bold'><h5 id='paymentNotification' ></h5></div>
+                <div class='col-md-2'>
+                    <button id='viewTpcBtn' type='button' class='btn btn-outline-primary btn-block' data-toggle='modal' data-target='#viewTpcModal'>View TPC</button>
+                </div>
+            </div>
+
+            <div class='modal fade' id='viewTpcModal' tabindex='-1' role='dialog' aria-labelledby='viewTpcModal' aria-hidden='true'>
+                <div class='modal-dialog  modal-lg modal-dialog-centered' role='document'>
+                    <div class='modal-content'>
+                        <div class='modal-header'>
+                            <h5 class='modal-title'>Time Payment Contract</h5>
+                            <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                <span aria-hidden='true'>&times;</span>
+                            </button>
+                        </div>
+                        <div id='viewTpcModalBody' class='modal-body'>
+
+                            <table class='table table-striped table-bordered'>
+                                <thead>
+                                    <tr>
+                                    <th scope='col'>#</th>
+                                    <th scope='col'>Month</th>
+                                    <th scope='col'>Date Due</th>
+                                    <th scope='col'>Payment</th>
+                                    </tr>
+                                </thead>
+                                <tbody id='viewTpcTableBody'>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class='modal-footer'>
+                            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class='modal fade' id='makePaymentModal' tabindex='-1' role='dialog' aria-labelledby='makePaymentModal' aria-hidden='true' data-backdrop='static'>
+                <div class='modal-dialog modal-dialog-centered modal-lg' role='document'>
+                    <div class='modal-content'>
+                        <div class='modal-header'>
+                            <h5 class='modal-title'>KIOSK / IVR PAYMENT</h5>
+                            <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                <span aria-hidden='true'>&times;</span>
+                            </button>
+                        </div>
+                        <div id='makePaymentModalBody' class='modal-body'>
+                           <form id='makePaymentForm' method=''>
+                               <div id='makePayment-required-inputs' class='was-validated'>
+                                    <div class='form-group row'>
+                                        <label for='makePaymentCardNum' class='col-md-4 col-form-label'>Card Number:</label>
+                                        <div class='col-md-8'>
+                                            <input type='text' class='form-control' value='' id='makePaymentCardNum' required>
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label for='makePaymentexpDate' class='col-md-4 col-form-label'>Expiration Date:</label>
+                                        <div class='col-md-8'>
+                                            <input type='text' class='form-control' value='' id='makePaymentexpDate' required>
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label for='makePaymentdocket' class='col-md-4 col-form-label'>Docket:</label>
+                                        <div class='col-md-8'>
+                                            <input type='text' class='form-control' value='' id='makePaymentdocket' required>
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label for='makePaymentAmt' class='col-md-4 col-form-label'>Payment</label>
+                                        <div class='input-group col-md-3'>
+                                                <div class='input-group-prepend'>
+                                                    <div class='input-group-text'>$</div>
+                                                </div>                                        
+                                                <input type='text' class='form-control' value='' id='makePaymentAmt' required>
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label for='makePaymentCvv' class='col-md-4 col-form-label'>CVV:</label>
+                                        <div class='col-md-2'>
+                                            <input type='text' class='form-control' value='' id='makePaymentCvv' required>
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label for='makePaymentZip' class='col-md-4 col-form-label'>Zipcode:</label>
+                                        <div class='col-md-4'>
+                                            <input type='text' class='form-control' value='' id='makePaymentZip' required>
+                                        </div>
+                                    </div>
+                               </div>
+                               <div class='form-group row'>
+                                   <label for='makePaymentNotes' class='col-md-4 col-form-label'>Notes:</label>
+                                   <div class='col-md-8'>
+                                        <textarea class='form-control' id=makePaymentNotes value='' rows='3'></textarea>
+                                   </div>
+                               </div>
+                           </form> 
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='button' class='btn btn-secondary' id='makePaymentCancelBtn' data-dismiss='modal'>Cancel</button>
+                            <button type='button' class='btn btn-primary' id='makePaymentSubmitBtn' disabled>Submit Payment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class='row py-2 px-3 mt-2 text-white align-items-center justify-content-center' style='background-color: rgb(148, 10, 158)'>
+                <h3><b>GENERAL INFORMATION</b></h3>
+            </div>
+
+            <div id='general-information' class='row'>
+
+                <div id='general-information-address' class='col'>
+                    <form>
+                        <ul id='gen-info-addr-ul'class='list-group list-group-flush'>
+                            <li id='general-information-street' class='list-group-item d-flex justify-content-between gen-info-li'>
+                                <label for='street_address' ><b>STREET ADDRESS:</b></label>
+                                <span id='street_address'>250 E 1st AVE</span>
+                            </li>
+                            <li id='general-information-apt-lot' class='list-group-item d-flex justify-content-between gen-info-li'>
+                                <label for='apt_lot'><b>APT / LOT #::</b></label>
+                                <span id='apt_lot'>2028</span>
+                            </li>
+                            <li id='general-information-city' class='list-group-item d-flex justify-content-between gen-info-li'>
+                                <label for='city'><b>CITY:</b></label>
+                                <span id='city'>MESA</span>
+                            </li>
+                            <li id='general-information-state' class='list-group-item d-flex justify-content-between gen-info-li'>
+                                <label for='state'><b>STATE:</b></label>
+                                <span id='state'>AZ</span>
+                            </li>
+                            <li id='general-information-zipcode' class='list-group-item d-flex justify-content-between gen-info-li'>
+                                <label for='zipcode'><b>ZIPCODE:</b></label>
+                                <span id='zipcode'>85210</span>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <div id='general-information-phone-lang' class='col'>
+                    <form>
+                    <ul id='gen-info-phone-lang-ul' class='list-group list-group-flush'>
+                        <li id='general-information-homeNum' class='list-group-item d-flex justify-content-between gen-info-li'>
+                            <label for='homeNum'><b>HOME #:</b></label>
+                            <span id='homeNum'>480-644-2255</span>
+                        </li>
+                        <li id='general-information-mobileNum' class='list-group-item d-flex justify-content-between gen-info-li'>
+                            <label for='mobileNum'><b>MOBILE #:</b></label>
+                            <span id='mobileNum'>480-644-2228</span>
+                        </li>
+                        <li id='general-information-workNum' class='list-group-item d-flex justify-content-between gen-info-li'>
+                            <label for='workNum'><b>WORK #:</b></label>
+                            <span id='workNum'>480-644-2972</span>
+                        </li>
+                        <li id='general-information-language' class='list-group-item d-flex justify-content-between'>
+                            <label for='language'><b>LANGUAGE:</b></label>
+                            <span id='language' style='color: rgb(228, 148, 0)' ><b>SPANISH</b></span>
+                        </li>
+                    </ul>
+                    </form>
+                    <div id='editAddressBtns'>
+                        <button id='editAddressBtn' class='btn btn-outline-info btn-block' type='button'>Edit Address</button>
+                    </div>
+                </div>
+
+                <div class='my-2' style='border:solid 2px; height: auto;'></div> <!--black bar-->
+
+                <div id='general-information-tpc' class='col'>
+                    <ul class='list-group list-group-flush'>
+                        <li id='general-information-activeTpc' class='list-group-item d-flex'>
+                            <label class='mr-auto' for='activeTpc'><b>ACTIVE TPC:</b></label>
+                            <span id='activeTpc' class='d-flex justify-content-center align-items-center' style='display: inline-block; border: solid 1px; background-color: lightgreen; width: 40%;'>YES</span>
+                        </li>
+                        <li id='general-information-datePaid'class='list-group-item d-flex'>
+                            <label class='mr-auto' for='lastDatePaid'><b>LAST DATE PAID:</b></label>
+                            <span id='lastDatePaid' class='d-flex justify-content-center align-items-center' style='display: inline-block; border: solid 1px; background-color: lightsteelblue; width: 40%;'>1/12/2021</span>
+                        </li>
+                        <li id='general-information-pastDueBool' class='list-group-item d-flex'>
+                            <label class='mr-auto' for='pastDue'><b>PAST DUE:</b></label>
+                            <span id='pastDue' class='d-flex justify-content-center align-items-center' style='display: inline-block; border: solid 1px; background-color: lightcoral; width: 40%;'>YES</span>
+                        </li>
+                        <li id='general-information-cbo' class='list-group-item d-flex'>
+                            <label class='mr-auto' for='cbo'><b>CBO:</b></label>
+                            <span id='cbo' class='d-flex justify-content-center align-items-center' style='display: inline-block; border: solid 1px; background-color: lightsteelblue; width: 40%;'>$1500</span>
+                        </li>
+                    </ul>
+                        <button id='makePaymentBtn' type='button' class='btn btn-outline-primary btn-block' data-toggle='modal' data-target='#makePaymentModal'>Make Payment</button>
+                
+                </div>
+
+            </div>
+
+
+            <div class='row py-2 px-3 mt-2 text-white align-items-center justify-content-center' style='background-color: rgb(148, 10, 158)'>
+                <h3><b>POINTS OF CONTACT</b></h3>
+            </div>
+
+            <div id='points-of-contact'>
+                <div id='points-of-contact-header' class='row'>
+                    <div class='col p-2 d-flex justify-content-center align-items-center bg-info' style='border: solid 1px;'>
+                        <b>NAME</b>
+                    </div>
+                    <div class='col p-2 d-flex justify-content-center align-items-center bg-info' style='border: solid 1px;'>
+                        <b>STATE</b>
+                    </div>
+                    <div class='col p-2 d-flex justify-content-center align-items-center bg-info' style='border: solid 1px;'>
+                        <b>PHONE #</b>
+                    </div>
+                    <div class='col p-2 d-flex justify-content-center align-items-center bg-info' style='border: solid 1px;'>
+                        <b>RELATIONSHIP</b>
+                    </div>
+                    <div class='col-md-2 px-3 py-2 d-flex justify-content-center align-items-center'>
+                        <button type='button' class='btn btn-primary btn-block' data-toggle='modal' data-target='#addContactModal'>ADD CONTACT</button>
+                    </div>
+                </div>
+
+                <div id='points-of-contact-info' class='row'>
+                    <!--JS driven content displayed here-->
+                </div>
+            </div>
+
+            <div class='modal fade' id='addContactModal' tabindex='-1' role='dialog' aria-labelledby='addContactModal' aria-hidden='true'>
+                <div class='modal-dialog modal-dialog-centered' role='document'>
+                    <div class='modal-content'>
+                        <div class='modal-header'>
+                            <h5 class='modal-title'>Add Contact</h5>
+                            <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                <span aria-hidden='true'>&times;</span>
+                            </button>
+                        </div>
+                        <div class='modal-body'>
+                            FORM WILL GO HERE FOR ADDING CONTACT
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancel</button>
+                            <button type='button' class='btn btn-primary' disabled>Add Contact</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id='cq-roa-area'>
+
+                <div class='row p-3 mt-5 text-white align-items-center justify-content-center' style='background-color: rgb(148, 10, 158)'>
+                    <div class='col-md-2'><!--spacer--></div>
+                    <h3 class='col-md-8 d-flex justify-content-center'><b>COLLECTOR QUEUE ROA</b></h3>
+                    <!--ADD ENTRY BUTTON NOT HORIZONTALLY ALIGNED WITH BUTTONS ABOVE-->
+                        <button id='add-roa-entry' class='btn btn-block col-md-2 d-flex justify-content-center align-items-center' type='button' data-toggle='modal' data-target='#addEntryModal' style='background-color: lightgray;'>ADD ENTRY</button>
+                </div>
+
+                <div class='modal fade' id='addEntryModal' tabindex='-1' role='dialog' aria-labelledby='addEntryModal' aria-hidden='true'>
+                    <div class='modal-dialog modal-dialog-centered' role='document'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <h5 class='modal-title'>CQ ROA ENTRY</h5>
+                                <button class='close' type='button' data-dismiss='modal' aria-label='Close'>&times;</button>
+                            </div>
+                            <div id='addEntryModalBody' class='modal-body'>
+                                ENTRY FORMS WILL APPEAR HERE
+                            </div>
+                            <div class='modal-footer'>
+                                <btutton type='button' class='btn btn-secondary' data-dismiss='modal'>Cancel</btutton>
+                                <button type='button' class='btn btn-primary' disabled>Add Entry</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='col-md-1 px-2 py-1 d-flex justify-content-center align-items-center' style='background-color: lightgray; border: solid 1px;'>
+                        <b>DATE</b>
+                    </div>
+                    <div class='col-md-5 px-2 py-1 d-flex justify-content-center align-items-center' style='background-color: lightgray; border: solid 1px;'>
+                        <b>EVENT NOTE</b>
+                    </div>
+                    <div class='col-md-5 px-2 py-1 d-flex justify-content-center align-items-center' style='background-color: lightgray; border: solid 1px;'>
+                        <b>USER NOTE</b>
+                    </div>
+                    <div class='col-md-1 px-2 py-1 d-flex justify-content-center align-items center' style='background-color: lightgray; border: solid 1px;'>
+                        <b>USER</b>
+                    </div>
+                </div>
+
+                <div id='cq-roa-entries' class='row'>
+                    <div id='roa-entries-default' class='col-md-12 py-2 d-flex justify-content-center' style='background-color: #ecece7; border: solid 1px;'>
+                    <b>NO ROA ENTRIES FOUND</b>
+                    </div>
+                    <!--JS driven content displayed here-->
+                </div>
+
+            </div>
+
+            
+
+
+            <footer class='bg-success' style='position: absolute; width: 100%; height: 30px; bottom: 0; left: 0;'></footer>
+
+
+
+
+        </div>    
+
+
+
+
+        <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"
+        ></script>
+        <script src='./cqCaseDetail.js'></script>
+    </body>
+</html>
