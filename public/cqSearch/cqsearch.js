@@ -343,7 +343,7 @@ const submitForm = async (event) => {
 	event.preventDefault();
 	let form = document.forms[event.target.id];
 	let formData = new FormData(form);
-	const url = new URL('../../cqSearch/'); 
+	const url = new URL('https://mcs-cq-module.herokuapp.com/cqSearch/'); 
 
 	for (let [name, value] of formData) {
 		let uppercaseValue = value.toUpperCase();
