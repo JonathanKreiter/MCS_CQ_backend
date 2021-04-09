@@ -344,7 +344,7 @@ const submitForm = async (event) => {
 	event.preventDefault();
 	let form = document.forms[event.target.id];
 	let formData = new FormData(form);
-	const server = process.env.PORT || 'http://localhost:5000/cqSearch'
+	const server = '../../index.js';
 	const url = new URL(server);
 
 	for (let [name, value] of formData) {
