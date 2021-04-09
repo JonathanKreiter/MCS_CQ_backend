@@ -5,7 +5,9 @@ require('dotenv').config();
 
 const server = http.createServer(app);
 
-server.listen((process.env.PORT || 5000), 'localhost', (error) => {
+let port = process.env.PORT || 5000; 
+
+server.listen(port,  (error) => {
 	if (error) throw error;
 	console.log('SERVER IS LIVE');
 	console.log(`LISTENING ON PORT ${process.env.PORT}`);
