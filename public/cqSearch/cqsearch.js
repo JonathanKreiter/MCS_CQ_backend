@@ -344,8 +344,8 @@ const submitForm = async (event) => {
 	event.preventDefault();
 	let form = document.forms[event.target.id];
 	let formData = new FormData(form);
-	const db = process.env.DATABASE_URL || 'http://localhost:5000/cqSearch'
-	const url = new URL(db);
+	const server = process.env.PORT || 'http://localhost:5000/cqSearch'
+	const url = new URL(server);
 
 	for (let [name, value] of formData) {
 		let uppercaseValue = value.toUpperCase();
