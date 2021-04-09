@@ -5,7 +5,9 @@ const { query_db } = require('./psql_db/index');
 
 cqSearchRouter.get('/', async (req, res) => { 
 
+	console.log('here?');
 	try {
+		console.log('here');
 		let result = await query_db(req.query);
 		const defendant_data = result.rows.length > 1 ? result.rows : result.rows[0];
 		console.log('def data: ', defendant_data);

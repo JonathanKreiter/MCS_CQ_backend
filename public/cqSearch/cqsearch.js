@@ -293,7 +293,6 @@ function displayResultsCount() {
 }
 
 function addToCount() {
-	console.log('fired');
 	resultsCounter++;
 }
 
@@ -344,8 +343,7 @@ const submitForm = async (event) => {
 	event.preventDefault();
 	let form = document.forms[event.target.id];
 	let formData = new FormData(form);
-	const server = '../../index.js';
-	const url = new URL(server);
+	const url = new URL('../../cqSearch/'); 
 
 	for (let [name, value] of formData) {
 		let uppercaseValue = value.toUpperCase();
@@ -407,6 +405,7 @@ function add_to_session_storage(deft_id, deft_profile) {
 const fetch_and_render = async (event) => {
 	event.preventDefault();
 	const response_data = await submitForm(event);
+	console.log(response_data);
 	const deft_profile = transform_deft_data(response_data);
 	render_and_add_to_session_storage(response_data.deft_id, deft_profile); // only processes 1 deft profile, not array for MVP
 };

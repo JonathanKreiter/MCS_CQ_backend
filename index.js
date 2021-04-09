@@ -7,7 +7,7 @@ const server = http.createServer(app);
 
 let port = process.env.PORT || 5000; 
 
-server.listen(port,  (error) => {
+server.listen(port, 'localhost', (error) => { 
 	if (error) throw error;
 	console.log('SERVER IS LIVE');
 	console.log(`LISTENING ON PORT ${process.env.PORT}`);
